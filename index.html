@@ -1,1 +1,693 @@
-
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>तकदीर का बादशाह - Money Rain Premium</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@700;800&family=Inter:wght@600;700;800&family=Poppins:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("init", "3338184729814469");
+      fbq("track", "PageView");
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=3338184729814469&ev=PageView&noscript=1"
+      />
+    </noscript>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: Inter, sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+      }
+      .devanagari {
+        font-family: "Noto Sans Devanagari", Inter, sans-serif;
+      }
+      @keyframes moneyFall {
+        0% {
+          transform: translate3d(var(--drift), -12vh, 0) rotate(0deg) scale(0.8);
+          opacity: 0;
+        }
+        8% {
+          opacity: 1;
+        }
+        85% {
+          opacity: 0.95;
+        }
+        100% {
+          transform: translate3d(calc(var(--drift) * -1), 112vh, 0)
+            rotate(720deg) scale(1.05);
+          opacity: 0;
+        }
+      }
+      @keyframes pulseDot {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+        }
+        50% {
+          transform: scale(1.12);
+          box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+        }
+      }
+      @keyframes glowPulse {
+        0%,
+        100% {
+          opacity: 0.55;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.85;
+          transform: scale(1.08);
+        }
+      }
+      @keyframes floatSparkle {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-10px) rotate(12deg);
+        }
+      }
+      .falling {
+        position: absolute;
+        top: 0;
+        pointer-events: none;
+        font-weight: 800;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+      }
+      @property --comet-angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
+      }
+      .comet-wrap {
+        position: relative;
+        padding: 2.2px;
+        border-radius: 20px;
+        background: #1a1340;
+        isolation: isolate;
+        margin-top: 8px;
+      }
+      .comet-rail {
+        position: absolute;
+        inset: -1px;
+        border-radius: 20px;
+        background: conic-gradient(
+          from var(--comet-angle),
+          transparent 0deg,
+          transparent 200deg,
+          rgba(103, 232, 249, 0) 220deg,
+          rgba(103, 232, 249, 0.6) 268deg,
+          #fff 282deg,
+          #e9d5ff 295deg,
+          #a78bfa 312deg,
+          #fbbf24 335deg,
+          #fff 354deg,
+          transparent 360deg
+        );
+        animation: cometRotate 2.4s linear infinite;
+        filter: blur(0.3px);
+      }
+      .comet-rail::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: conic-gradient(
+          from var(--comet-angle),
+          transparent 0deg,
+          transparent 240deg,
+          rgba(103, 232, 249, 0.15) 265deg,
+          rgba(167, 139, 250, 0.35) 288deg,
+          rgba(251, 191, 36, 0.25) 320deg,
+          transparent 355deg
+        );
+        filter: blur(10px);
+      }
+      .comet-rail::after {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border-radius: 15px;
+        background: #1a1340;
+      }
+      .comet-bg-fade {
+        position: absolute;
+        inset: 2px;
+        border-radius: 18px;
+        background:
+          radial-gradient(
+            120% 120% at 30% 0%,
+            rgba(103, 232, 249, 0.18),
+            transparent 50%
+          ),
+          radial-gradient(
+            120% 120% at 80% 100%,
+            rgba(251, 191, 36, 0.14),
+            transparent 60%
+          ),
+          linear-gradient(104deg, #1e174a, #261a5a);
+        z-index: 0;
+      }
+      .comet-head {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: radial-gradient(circle, #fff 0%, #a5f3fc 35%, #a78bfa 75%);
+        border-radius: 50%;
+        box-shadow:
+          0 0 12px #fff,
+          0 0 22px #67e8f9,
+          0 0 32px #a78bfa,
+          -8px 0 18px rgba(103, 232, 249, 0.8);
+        z-index: 3;
+        top: 50%;
+        left: 50%;
+        offset-path: inset(0% round 18px);
+        animation: cometHeadTravel 2.4s linear infinite;
+      }
+      .comet-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 16px 16px;
+        background: linear-gradient(
+          104deg,
+          #fbbf24 0%,
+          #fde68a 14%,
+          #f59e0b 32%,
+          #fef08a 52%,
+          #f59e0b 74%,
+          #d97706 100%
+        );
+        background-size: 220% 100%;
+        border-radius: 18px;
+        border: none;
+        font-family: "Poppins", sans-serif;
+        font-size: 15.5px;
+        font-weight: 800;
+        color: #1e1b4b;
+        text-decoration: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+        box-shadow:
+          0 10px 28px rgba(124, 58, 237, 0.35),
+          0 0 20px rgba(103, 232, 249, 0.18);
+        animation:
+          btnFloat 3s ease-in-out infinite,
+          gradientShift 3.5s ease infinite;
+      }
+      .comet-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -85%;
+        width: 55%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 255, 255, 0.92),
+          transparent
+        );
+        transform: skewX(-18deg);
+        animation: shineSweep 2.2s ease-in-out infinite;
+        z-index: 3;
+      }
+      @keyframes cometRotate {
+        to {
+          --comet-angle: 360deg;
+        }
+      }
+      @keyframes cometHeadTravel {
+        0% {
+          offset-distance: 0%;
+        }
+        100% {
+          offset-distance: 100%;
+        }
+      }
+      @keyframes shineSweep {
+        0% {
+          left: -85%;
+        }
+        55% {
+          left: 135%;
+        }
+        100% {
+          left: 135%;
+        }
+      }
+      @keyframes btnFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-2.5px);
+        }
+      }
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="moneyWrap"
+      style="
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      "
+    >
+      <div
+        style="
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(
+            ellipse at center,
+            transparent 45%,
+            rgba(0, 0, 0, 0.85) 100%
+          );
+        "
+      ></div>
+    </div>
+    <div
+      style="
+        position: relative;
+        z-index: 10;
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        padding: 24px 16px;
+      "
+    >
+      <div style="width: 100%; max-width: 390px">
+        <div
+          style="
+            position: relative;
+            background: linear-gradient(180deg, #1a233a 0%, #131a2b 100%);
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            border-radius: 26px;
+            padding: 22px;
+            box-shadow:
+              0 0 0 1px rgba(255, 215, 0, 0.2) inset,
+              0 20px 60px rgba(0, 0, 0, 0.6),
+              0 0 80px rgba(255, 215, 0, 0.12);
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 20%;
+              right: 20%;
+              height: 1px;
+              background: linear-gradient(
+                90deg,
+                transparent,
+                #ffd700,
+                transparent
+              );
+              opacity: 0.8;
+            "
+          ></div>
+          <div
+            style="display: flex; justify-content: center; margin-bottom: 14px"
+          >
+            <div
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(255, 215, 0, 0.08);
+                border: 1px solid rgba(255, 215, 0, 0.28);
+                border-radius: 100px;
+                padding: 6px 14px;
+                backdrop-filter: blur(10px);
+              "
+            >
+              <div
+                style="
+                  width: 8px;
+                  height: 8px;
+                  background: #22c55e;
+                  border-radius: 50%;
+                  animation: pulseDot 1.8s infinite;
+                "
+              ></div>
+              <span
+                style="
+                  font-size: 11px;
+                  font-weight: 800;
+                  letter-spacing: 0.06em;
+                  color: #ffdd66;
+                "
+                id="liveText"
+              >
+                LIVE • 2,847 Members Online
+              </span>
+            </div>
+          </div>
+          <div style="text-align: center; margin-bottom: 10px">
+            <div
+              style="
+                font-size: 26px;
+                font-weight: 800;
+                color: #ffcc33;
+                text-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+              "
+              class="devanagari"
+            >
+              👑 तकदीर का बादशाह 👑
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              margin: 18px 0;
+              position: relative;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                width: 220px;
+                height: 220px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: radial-gradient(
+                  circle,
+                  rgba(0, 200, 83, 0.25) 0%,
+                  rgba(255, 214, 0, 0.2) 40%,
+                  transparent 70%
+                );
+                filter: blur(2px);
+                animation: glowPulse 3s ease-in-out infinite;
+              "
+            ></div>
+            <div
+              style="
+                position: relative;
+                width: 168px;
+                height: 168px;
+                border-radius: 50%;
+                padding: 4px;
+                background: conic-gradient(
+                  from 0deg,
+                  #ffd700,
+                  #ffa000,
+                  #ffd700,
+                  #fff176,
+                  #ffd700
+                );
+                box-shadow:
+                  0 0 30px rgba(255, 215, 0, 0.5),
+                  0 8px 24px rgba(0, 0, 0, 0.6);
+                animation: floatSparkle 3.5s ease-in-out infinite;
+              "
+            >
+              <div
+                style="
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 50%;
+                  padding: 3px;
+                  background: #fff;
+                "
+              >
+                <img
+                  src="https://i.ibb.co/rKNV12P0/IMG-20260907-113903-051.jpg"
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    object-position: top center;
+                  "
+                  alt="DP"
+                />
+              </div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 2px;
+                  right: 2px;
+                  width: 38px;
+                  height: 38px;
+                  background: radial-gradient(
+                    circle at 30% 30%,
+                    #fff176,
+                    #ffd700 40%,
+                    #ff8f00
+                  );
+                  border: 2px solid #000;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+                  font-size: 18px;
+                "
+              >
+                👑
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              margin-bottom: 14px;
+            "
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <path
+                fill="#1D9BF0"
+                d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+              />
+            </svg>
+            <span style="font-size: 11.5px; font-weight: 600; color: #d9c08a">
+              Verified Channel ✓ | 4.9★ Rating | 50K+ Members
+            </span>
+          </div>
+          <div
+            style="display: flex; justify-content: center; margin-bottom: 16px"
+          >
+            <div
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 215, 0, 0.18);
+                border-radius: 100px;
+                padding: 6px 14px;
+                backdrop-filter: blur(8px);
+              "
+            >
+              <div
+                style="
+                  width: 6px;
+                  height: 6px;
+                  background: #22c55e;
+                  border-radius: 50%;
+                  box-shadow: 0 0 8px #22c55e;
+                "
+              ></div>
+              <span style="font-size: 11px; color: rgba(255, 255, 255, 0.75)">
+                Last Result Updated:
+                <span style="color: #22c55e; font-weight: 700">Just Now</span>
+              </span>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              gap: 8px;
+              margin-bottom: 18px;
+              flex-wrap: wrap;
+            "
+          >
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 215, 0, 0.18);
+                border-radius: 100px;
+                padding: 6px 12px;
+                font-size: 10.5px;
+                font-weight: 700;
+                color: #ffe9a8;
+              "
+            >
+              ✅ 100% FREE
+            </div>
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 215, 0, 0.18);
+                border-radius: 100px;
+                padding: 6px 12px;
+                font-size: 10.5px;
+                font-weight: 700;
+                color: #ffe9a8;
+              "
+            >
+              ⚡ FAST RESULT
+            </div>
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 215, 0, 0.18);
+                border-radius: 100px;
+                padding: 6px 12px;
+                font-size: 10.5px;
+                font-weight: 700;
+                color: #ffe9a8;
+              "
+            >
+              🔒 SECURE
+            </div>
+          </div>
+          <div class="comet-wrap">
+            <div class="comet-rail"></div>
+            <div class="comet-bg-fade"></div>
+            <div class="comet-head"></div>
+            <a
+              href="https://t.me/+ZEVLMzjy4uM0NmQ1"
+              target="_blank"
+              class="comet-btn"
+              onclick="return handleRealJoin(this, event);"
+            >
+              <span
+                style="
+                  width: 28px;
+                  height: 28px;
+                  background: #fff;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                "
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path
+                    fill="#229ED9"
+                    d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0Zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.12L9.1 13.617l-4.18-1.306c-.906-.285-.93-.906.19-1.343l16.33-6.3c.756-.276 1.418.164 1.168 1.26l-.001.001Z"
+                  />
+                </svg>
+              </span>
+              JOIN FREE TELEGRAM
+            </a>
+          </div>
+          <div style="text-align: center; margin-top: 14px">
+            <span
+              style="
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                color: rgba(255, 255, 255, 0.55);
+              "
+            >
+              ⚡ Official Channel • Fast Updates ⚡
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const chars = ["₹", "$", "🪙", "💵", "💸", "₹", "$", "🪙"];
+      const wrap = document.getElementById("moneyWrap");
+      for (let i = 0; i < 28; i++) {
+        const el = document.createElement("div");
+        el.className = "falling";
+        const ch = chars[i % chars.length];
+        el.textContent = ch;
+        const left = Math.random() * 100;
+        const drift = (Math.random() - 0.5) * 120;
+        const dur = 6 + Math.random() * 8;
+        const delay = Math.random() * 8;
+        const size =
+          ch.length > 1 ? 18 + Math.random() * 14 : 16 + Math.random() * 18;
+        el.style.left = left + "%";
+        el.style.setProperty("--drift", drift + "px");
+        el.style.fontSize = size + "px";
+        el.style.animation =
+          "moneyFall " + dur + "s linear " + delay + "s infinite";
+        if (ch === "₹") {
+          el.style.color = "#FFD700";
+          el.style.textShadow =
+            "0 0 14px rgba(255,215,0,0.9),0 0 30px rgba(255,215,0,0.35)";
+        } else if (ch === "$") {
+          el.style.color = "#00C853";
+          el.style.textShadow = "0 0 14px rgba(0,200,83,0.8)";
+        } else {
+          el.style.textShadow =
+            "0 2px 10px rgba(0,0,0,0.8),0 0 20px rgba(255,215,0,0.35)";
+        }
+        wrap.appendChild(el);
+      }
+      setInterval(() =>
